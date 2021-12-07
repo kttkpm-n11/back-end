@@ -11,11 +11,11 @@ spring:
         - id: PRODUCT-SERVICE
           uri: lb://PRODUCT-SERVICE
           predicates:
-            - Path=/products/**, /login, /register
+            - Path=/api/products/**, /products/**, /login, /register
         - id: SUPPLIER-SERVICE
           uri: lb://SUPPLIER-SERVICE
           predicates:
-            - Path=/suppliers/**
+            - Path=/api/suppliers/**, /suppliers/**
 
 eureka:
   client:

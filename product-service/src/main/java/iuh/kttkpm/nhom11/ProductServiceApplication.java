@@ -11,6 +11,9 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -26,6 +29,7 @@ public class ProductServiceApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
     }
+
 
     @Bean
     @LoadBalanced
@@ -61,6 +65,24 @@ public class ProductServiceApplication implements CommandLineRunner {
                 .apis(RequestHandlerSelectors.basePackage("iuh.kttkpm.nhom11"))
                 .paths(PathSelectors.any())
                 .build();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        final var source = new UrlBasedCorsConfigurationSource();
+        final var config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("HEAD");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedMethod("PATCH");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
 }
