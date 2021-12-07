@@ -24,18 +24,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+
+
     @GetMapping("/{id}")
     @ApiOperation("Xem chi tiết sản phẩm theo mã")
     public ResponseEntity<?> findById(@PathVariable Long id) {
-        ProductSupplier ps = productService.findById(id);
-        return ResponseEntity.ok(ps);
+        return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping("/put/{id}")
     @ApiOperation("...")
     public ResponseEntity<?> putCache(@PathVariable Long id) {
-        ProductSupplier ps = productService.putCache(id);
-        return ResponseEntity.ok(ps);
+        return ResponseEntity.ok(productService.putCache(id));
     }
 
     @GetMapping

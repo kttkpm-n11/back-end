@@ -29,7 +29,7 @@ public class ProductService {
     @Value("${supplier.url}")
     private String supplierUrl;
 
-    @Cacheable("product")
+    @Cacheable("productSupplierCache")
     @Retry(name = "basic")
     public ProductSupplier findById(Long id) {
         log.info("get By ID");
@@ -46,7 +46,7 @@ public class ProductService {
         return null;
     }
 
-    @CachePut("product")
+    @CachePut("productSupplierCache")
     @Retry(name = "basic")
     public ProductSupplier putCache(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
