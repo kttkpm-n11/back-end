@@ -17,6 +17,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+
 @EnableSwagger2
 @EnableEurekaClient
 @SpringBootApplication
@@ -51,6 +53,8 @@ public class ProductServiceApplication implements CommandLineRunner {
             productRepository.save(product);
         }
     }
+
+
 
     /*
     config swagger, generate document for api
