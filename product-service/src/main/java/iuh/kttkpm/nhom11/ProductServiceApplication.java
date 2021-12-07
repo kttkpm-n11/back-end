@@ -21,6 +21,7 @@ public class ProductServiceApplication implements CommandLineRunner {
         SpringApplication.run(ProductServiceApplication.class, args);
     }
 
+
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
