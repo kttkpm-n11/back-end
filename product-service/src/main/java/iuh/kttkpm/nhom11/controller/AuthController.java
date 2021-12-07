@@ -1,5 +1,6 @@
 package iuh.kttkpm.nhom11.controller;
 
+import io.swagger.annotations.ApiOperation;
 import iuh.kttkpm.nhom11.entity.MessageResponse;
 import iuh.kttkpm.nhom11.entity.User;
 import iuh.kttkpm.nhom11.service.UserService;
@@ -8,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @RestController
+@CrossOrigin("${spring.security.cross_origin}")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -26,8 +27,9 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user){
-        if (userService.findByUsername(user.getUsername())!=null)
+    @ApiOperation("Đăng ký tài khoản")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (userService.findByUsername(user.getUsername()) != null)
             return ResponseEntity.badRequest().body(new MessageResponse("Username không được trùng"));
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         Set<String> roles = new HashSet<>();
@@ -37,13 +39,13 @@ public class AuthController {
     }
 
 
-
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user){
+    @ApiOperation("Đăng nhập")
+    public ResponseEntity<?> login(@RequestBody User user) {
         User userPrincipal = userService.findByUsername(user.getUsername());
 
-        if (user == null || !new BCryptPasswordEncoder().matches(user.getPassword(),
-                userPrincipal.getPassword())){
+        if (user == null || ! new BCryptPasswordEncoder().matches(user.getPassword(),
+                userPrincipal.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Account or password is not valid");
         }
@@ -51,8 +53,6 @@ public class AuthController {
         String token = jwtUtil.generateToken(user);
         return ResponseEntity.ok(token);
     }
-
-
 
 
 }
