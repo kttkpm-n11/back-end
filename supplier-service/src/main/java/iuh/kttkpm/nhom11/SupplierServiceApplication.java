@@ -8,9 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -55,7 +52,7 @@ public class SupplierServiceApplication implements CommandLineRunner {
                 .build();
     }
 
-    @Bean
+/*    @Bean
     public CorsFilter corsFilter() {
         final var source = new UrlBasedCorsConfigurationSource();
         final var config = new CorsConfiguration();
@@ -71,6 +68,6 @@ public class SupplierServiceApplication implements CommandLineRunner {
         config.addAllowedMethod("PATCH");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-    }
+    }*/
 
 }

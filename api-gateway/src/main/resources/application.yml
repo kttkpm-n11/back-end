@@ -16,6 +16,12 @@ spring:
           uri: lb://SUPPLIER-SERVICE
           predicates:
             - Path=/api/suppliers/**, /suppliers/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
 
 eureka:
   client:
