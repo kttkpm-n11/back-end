@@ -24,7 +24,7 @@ public class SupplierController {
 
     @GetMapping("/{id}")
     @ApiOperation("Xem chi tiết nhà cung cấp theo id")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable String id) {
         return ResponseEntity.ok(supplierService.findById(id));
     }
 
@@ -42,13 +42,13 @@ public class SupplierController {
 
     @PutMapping("/{id}")
     @ApiOperation("Cập nhật thông tin nhà cung cấp")
-    public ResponseEntity<?> update(@RequestBody Supplier supplier, @PathVariable Long id) {
+    public ResponseEntity<?> update(@RequestBody Supplier supplier, @PathVariable String id) {
         return ResponseEntity.ok(supplierService.update(supplier, id));
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Xóa nhà cung cấp")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable String id) {
         return ResponseEntity.ok(supplierService.delete(id));
     }
 

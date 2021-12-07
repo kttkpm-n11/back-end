@@ -1,11 +1,9 @@
 package iuh.kttkpm.nhom11;
 
-import iuh.kttkpm.nhom11.entity.Product;
-import iuh.kttkpm.nhom11.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -18,12 +16,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-
 @EnableSwagger2
 @EnableEurekaClient
 @SpringBootApplication
 @EnableCaching
-public class ProductServiceApplication implements CommandLineRunner {
+public class ProductServiceApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
@@ -35,26 +32,6 @@ public class ProductServiceApplication implements CommandLineRunner {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Override
-    public void run(String... args) throws Exception {
-        for (int i = 1; i <= 4; i++) {
-            var product = Product.builder()
-                    .id((long) i)
-                    .description("description " + i)
-                    .material("material " + i)
-                    .name("product name " + i)
-                    .origin("origin " + i)
-                    .supplierId((long) i)
-                    .build();
-            productRepository.save(product);
-        }
-    }
-
-
 
     /*
     config swagger, generate document for api
@@ -68,22 +45,12 @@ public class ProductServiceApplication implements CommandLineRunner {
                 .build();
     }
 
-    /*@Bean
-    public CorsFilter corsFilter() {
-        final var source = new UrlBasedCorsConfigurationSource();
-        final var config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }*/
+    /*
+    config cho việc build file war
+     */
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ProductServiceApplication.class);
+    }
 
 }

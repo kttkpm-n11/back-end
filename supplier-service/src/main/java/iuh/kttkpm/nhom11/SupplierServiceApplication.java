@@ -1,11 +1,9 @@
 package iuh.kttkpm.nhom11;
 
-import iuh.kttkpm.nhom11.entity.Supplier;
-import iuh.kttkpm.nhom11.repository.SupplierRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.PathSelectors;
@@ -17,27 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableEurekaClient
 @SpringBootApplication
-public class SupplierServiceApplication implements CommandLineRunner {
+public class SupplierServiceApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(SupplierServiceApplication.class, args);
-    }
-
-    @Autowired
-    private SupplierRepository supplierRepository;
-
-    @Override
-    public void run(String... args) throws Exception {
-        for (int i = 1; i <= 4; i++) {
-            var supplier = Supplier.builder()
-                    .id((long) i)
-                    .name("supplier " + i)
-                    .address("address supplier " + i)
-                    .email("email supplier " + i)
-                    .phone("phone supplier " + i)
-                    .build();
-            supplierRepository.save(supplier);
-        }
     }
 
     /*
@@ -52,22 +33,12 @@ public class SupplierServiceApplication implements CommandLineRunner {
                 .build();
     }
 
-/*    @Bean
-    public CorsFilter corsFilter() {
-        final var source = new UrlBasedCorsConfigurationSource();
-        final var config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }*/
+    /*
+    config cho việc build file war
+     */
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(SupplierServiceApplication.class);
+    }
 
 }

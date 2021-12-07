@@ -17,7 +17,7 @@ public class SupplierService {
     private SupplierRepository supplierRepository;
 
     @RateLimiter(name = "multipleRateLimiters_rps_limiter")
-    public Supplier findById(Long id) {
+    public Supplier findById(String id) {
         log.info("get supplier");
         Optional<Supplier> supplierOptional = supplierRepository.findById(id);
         return supplierOptional.orElse(null);
@@ -31,7 +31,7 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
-    public Supplier update(Supplier supplier, Long id) {
+    public Supplier update(Supplier supplier, String id) {
         Optional<Supplier> supplierOptional = supplierRepository.findById(id);
         if (supplierOptional.isPresent()) {
             supplier.setId(id);
@@ -39,7 +39,7 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
-    public Supplier delete(Long id) {
+    public Supplier delete(String id) {
         Optional<Supplier> supplierOptional = supplierRepository.findById(id);
         if (supplierOptional.isPresent()) {
             supplierRepository.deleteById(id);

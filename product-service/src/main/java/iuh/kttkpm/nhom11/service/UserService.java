@@ -15,7 +15,7 @@ public class UserService {
 
 
     public User createUser(User user) {
-        return userRepository.saveAndFlush(user);
+        return userRepository.save(user);
     }
 
 
@@ -24,8 +24,8 @@ public class UserService {
         return user;
     }
 
-    public List<User> getListUser(){
-       return userRepository.findAll();
+    public List<User> getListUser() {
+        return userRepository.findAll();
     }
 
 

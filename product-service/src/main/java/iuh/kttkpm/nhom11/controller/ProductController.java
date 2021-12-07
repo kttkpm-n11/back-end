@@ -1,7 +1,6 @@
 package iuh.kttkpm.nhom11.controller;
 
 import io.swagger.annotations.ApiOperation;
-import iuh.kttkpm.nhom11.dto.ProductSupplier;
 import iuh.kttkpm.nhom11.entity.Product;
 import iuh.kttkpm.nhom11.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +23,15 @@ public class ProductController {
     private ProductService productService;
 
 
-
     @GetMapping("/{id}")
     @ApiOperation("Xem chi tiết sản phẩm theo mã")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable String id) {
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping("/put/{id}")
     @ApiOperation("...")
-    public ResponseEntity<?> putCache(@PathVariable Long id) {
+    public ResponseEntity<?> putCache(@PathVariable String id) {
         return ResponseEntity.ok(productService.putCache(id));
     }
 
@@ -51,13 +49,13 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @ApiOperation("Cập nhật sản phẩm")
-    public ResponseEntity<?> update(@RequestBody Product product, @PathVariable Long id) {
+    public ResponseEntity<?> update(@RequestBody Product product, @PathVariable String id) {
         return ResponseEntity.ok(productService.update(product, id));
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Xóa sản phẩm theo id")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable String id) {
         return ResponseEntity.ok(productService.delete(id));
     }
 

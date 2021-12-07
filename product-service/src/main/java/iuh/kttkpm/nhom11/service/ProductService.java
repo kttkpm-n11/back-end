@@ -31,7 +31,7 @@ public class ProductService {
 
     @Cacheable("productSupplierCache")
     @Retry(name = "basic")
-    public ProductSupplier findById(Long id) {
+    public ProductSupplier findById(String id) {
         log.info("get By ID");
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
@@ -48,7 +48,7 @@ public class ProductService {
 
     @CachePut("productSupplierCache")
     @Retry(name = "basic")
-    public ProductSupplier putCache(Long id) {
+    public ProductSupplier putCache(String id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             var product = productOptional.get();
@@ -71,7 +71,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product update(Product product, Long id) {
+    public Product update(Product product, String id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             product.setId(id);
@@ -79,7 +79,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product delete(Long id) {
+    public Product delete(String id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             productRepository.deleteById(id);
