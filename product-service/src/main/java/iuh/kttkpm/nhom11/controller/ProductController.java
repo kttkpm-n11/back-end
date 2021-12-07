@@ -27,6 +27,12 @@ public class ProductController {
         return ResponseEntity.ok(ps);
     }
 
+    @GetMapping("/put/{id}")
+    public ResponseEntity<?> putCache(@PathVariable Long id) {
+        ProductSupplier ps = productService.putCache(id);
+        return ResponseEntity.ok(ps);
+    }
+
     @GetMapping
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(productService.findAll());
@@ -46,5 +52,8 @@ public class ProductController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         return ResponseEntity.ok(productService.delete(id));
     }
+
+
+
 
 }
