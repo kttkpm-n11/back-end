@@ -5,10 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @EnableEurekaClient
 @SpringBootApplication
@@ -18,7 +14,7 @@ public class ApiGatewayApplication extends SpringBootServletInitializer {
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public CorsFilter corsFilter() {
         final var source = new UrlBasedCorsConfigurationSource();
         final var config = new CorsConfiguration();
@@ -34,7 +30,7 @@ public class ApiGatewayApplication extends SpringBootServletInitializer {
         config.addAllowedMethod("PATCH");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-    }
+    }*/
 
     /*
     config cho việc build file war
