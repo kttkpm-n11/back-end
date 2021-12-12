@@ -32,3 +32,17 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     hostname: 54.179.42.252
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+info:
+  app:
+    version: 0.0.1
+    name: Api gateway service
+    description: Api gateway service
